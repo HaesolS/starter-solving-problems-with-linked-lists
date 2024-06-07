@@ -4,6 +4,29 @@
  * @param {Node} x
  * @param {Node} y
  */
-function swap(list, x, y) {}
+function swap(list, x, y) {
+    if (!list.head) {
+        return list;
+    }
+
+    const xNext = x.next;
+    const xPrev = list.findWithPrevious((node) => node === x)[1];
+    const yPrev = list.findWithPrevious((node) => node === y)[1];
+    x.next = y.next;
+    y.next = xNext;
+
+    if (xPrev) {
+        xPrev.next = y;
+    } else {
+        list.head = y;
+    }
+
+    if (yPrev) {
+        yPrev.next = x;
+    } else {
+        list.head = x;
+    }
+    return list;
+}
 
 module.exports = swap;
